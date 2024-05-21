@@ -1,0 +1,73 @@
+<h1 class="text-center">{{ titlePrincipal }}</h1>
+<br />
+<div class="row g-3">
+  <form
+    class="form-group row"
+    (ngSubmit)="addBook(bookForm)"
+    #bookForm="ngForm"
+  >
+    <div class="col-auto">
+      <label for="title">Nombre:</label>
+      <input
+        type="text"
+        name="title"
+        id="title"
+        placeholder="Titulo"
+        class="form-control"
+        [(ngModel)]="book.title"
+        #title="ngModel"
+        required
+      />
+      @if (title.invalid && (title.dirty || title.touched)) {
+      <div class="text-danger">El título es requerido</div>
+      }
+    </div>
+
+    <div class="col-auto">
+      <label for="publication_date">Fecha de Publicación:</label>
+      <input
+        type="date"
+        name="publication_date"
+        id="publication_date"
+        placeholder="Fecha de Publicación"
+        class="form-control"
+        [(ngModel)]="book.publication_date"
+        #publication_date="ngModel"
+        required
+      />
+      @if (publication_date.invalid && (publication_date.dirty ||
+      publication_date.touched)) {
+      <div class="text-danger">La fecha es requerida</div>
+      }
+    </div>
+
+    <div class="col-auto">
+      <label for="genre">Género</label>
+
+      <select class="form-select" [(ngModel)]="book.genre" name="book.genre">
+        @for (genre of genders; track genre.id) {
+        <option [ngValue]="{ id: genre.id, name: genre.name }">
+          {{ genre.name }}
+        </option>
+        } @empty { }
+      </select>
+    </div>
+
+    <div class="col-auto mt-auto">
+      <button
+        [disabled]="!bookForm.form.valid"
+        type="submit"
+        class="btn btn-primary my-2 mx-2"
+      >
+        {{ book.id > 0 ? "Actualizar" : "Crear" }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary my-2 mx-2"
+        (click)="clean()"
+      >
+        Limpiar
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,39 @@
+<div class="container">
+  <book-form (newBookEvent)="addBook($event)" [book]="bookSelected">
+  </book-form>
+</div>
+
+<br />
+<br />
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Fecha de publicación</th>
+        <th>Género</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (book of books; track $index){
+      <tr>
+        <td>{{ book.id }}</td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.publication_date }}</td>
+        <td>{{ book.genre?.name }}</td>
+        <td>
+          <button (click)="onUpdateBook(book)" class="btn btn-warning">
+            Actualizar
+          </button>
+          <button (click)="onRemoveBook(book.id)" class="btn btn-danger mx-2">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
